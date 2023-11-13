@@ -6,11 +6,11 @@ class ContactSerializer(serializers.Serializer):
     title = serializers.CharField(max_length = 100)
     email = serializers.EmailField(max_length = 100)
 
-    # def create(self, validated_data):
-    #     """
-    #     Create and return a new `Contact` instance, given the validated data.
-    #     """
-    #     return Contact.objects.create(validated_data)
+    def create(self, validated_data):
+        """
+        Create and return a new `Contact` instance, given the validated data.
+        """
+        return Contact.objects.create(**validated_data)
 
     # def update(self, instance, validated_data):
     #     """
