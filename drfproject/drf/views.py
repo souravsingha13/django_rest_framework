@@ -24,3 +24,18 @@ def add_contact(request):
             return Response("Successfully Added", status=status.HTTP_201_CREATED)
         else:
             return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["POST"])
+def update_contact(request, contact_id):
+    try:
+        contact = Contact.objects.get(pk=contact_id)
+    except Contact.DoesNotExist:
+        return Response({"Error": "Contact not found"}, status=404)
+
+    if request.method == 'POST':
+        serialized_data = ContactSerializer(contact, data=request.data)
+
+        if serialized_data.is_valid():
+            serialized_data.save()
+            return Response(serialized_data.data, status=200)
+        return Response(serialized_data.errors, status=400)
