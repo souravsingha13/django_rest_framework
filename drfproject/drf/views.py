@@ -9,7 +9,12 @@ from rest_framework import status
 
 
 @api_view(["GET"])
-def get_contacts(request):
+def get_contacts(request, contact_id = None):
+    if contact_id:
+        contact = Contact.objects.get(pk = contact_id)
+        serialized_contact = ContactSerializer(contact)
+        data = serialized_contact.data
+        return Response(data)
     all_contacts = Contact.objects.all()
     serialized_contacts = ContactSerializer(all_contacts, many = True)
     data = serialized_contacts.data
