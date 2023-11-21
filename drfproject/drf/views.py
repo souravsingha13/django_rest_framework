@@ -44,3 +44,13 @@ def update_contact(request, contact_id):
             serialized_data.save()
             return Response(serialized_data.data, status=200)
         return Response(serialized_data.errors, status=400)
+
+@api_view(['GET'])
+def delete_contact(request,contact_id):
+    try: 
+        contact = Contact.objects.get(pk = contact_id)
+        contact.delete()
+        return Response({'message': 'Contact deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+    except Contact.DoesNotExist:
+        return Response({"Error":"Contact not found"})
+    

@@ -30,6 +30,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'drf.CustomUser'
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000"
+]
+CORS_ALLOWED_CREDENTIALS = True
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,9 +49,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #third party app
     "rest_framework",
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
