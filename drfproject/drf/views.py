@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework import status 
+from django.views.decorators.csrf import csrf_exempt
 
 
 @api_view(["GET"])
@@ -31,6 +32,7 @@ def add_contact(request):
             return Response(serialized_data.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["POST"])
+@csrf_exempt
 def update_contact(request, contact_id):
     try:
         contact = Contact.objects.get(pk=contact_id)
