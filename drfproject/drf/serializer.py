@@ -30,3 +30,8 @@ class ContactSerializer(serializers.ModelSerializer):
     class Meta:
         model = Contact
         fields = '__all__'
+
+    def validate_name(self, value):
+        if value != 'sourav':
+            raise serializers.ValidationError("Name must be sourav")
+        return value
